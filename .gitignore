@@ -1,0 +1,8 @@
+bin
+obj
+*.ali
+*.bexch
+*.o
+*.stderr
+*.stdout
+b__*

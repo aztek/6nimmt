@@ -1,0 +1,11 @@
+project Six_Nimmt is
+   for Languages use ("Ada");
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("six_nimmt-main.adb");
+
+   package Builder is
+      for Executable ("six_nimmt-main.adb") use "6nimmt";
+   end Builder;
+end Six_Nimmt;
