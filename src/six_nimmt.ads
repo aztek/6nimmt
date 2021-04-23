@@ -6,7 +6,7 @@ with Ada.Containers.Vectors;
 package Six_Nimmt is
 
    -- The game consists of 104 cards, numbered from 1 to 104.
-   type Card is new Integer range 1..104;
+   type Card is range 1 .. 104;
 
    package Card_Sets is new Ada.Containers.Ordered_Sets
       (Element_Type => Card);
@@ -60,11 +60,11 @@ package Six_Nimmt is
    end record;
 
    -- The game is for two to ten players.
-  --  type Nr_Players is new Integer range 2..10;
+  --  type Nr_Players is new Integer range 2 .. 10;
 
    Nr_Players : constant := 3;
 
-   type Player_Position is range 1..Nr_Players;
+   type Player_Position is range 1 .. Nr_Players;
 
    type Players is array (Player_Position) of Player;
 
@@ -85,7 +85,7 @@ package Six_Nimmt is
 
    -- There are four rows of cards on the table.
    Nr_Rows : constant := 4;
-   type Row_Index is range 1..Nr_Rows;
+   type Row_Index is range 1 .. Nr_Rows;
    type Table is array (Row_Index) of Row;
 
    procedure Setup_Game (D : in out Deck; T : out Table; Ps : out Players);
@@ -96,9 +96,9 @@ package Six_Nimmt is
    -- among the top cards of each row on the table.
    function Lowest_Card (C : Card; T : Table) return Boolean
       with Pre => True,
-            Post => (if Lowest_Card'Result then
-                        (for all R of T => R.Last_Element > C)
-                    else
-                        (for some R of T => C > R.Last_Element));
+           Post => (if Lowest_Card'Result then
+                       (for all R of T => R.Last_Element > C)
+                   else
+                       (for some R of T => C > R.Last_Element));
 
 end Six_Nimmt;

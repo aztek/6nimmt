@@ -46,7 +46,7 @@ package body Six_Nimmt.CLI is
       Control_Seq : Boolean := False;
       Emoji_Seq : Boolean := False;
    begin
-      for I in 1..Ada.Strings.Unbounded.Length (Str) loop
+      for I in 1 .. Ada.Strings.Unbounded.Length (Str) loop
          C := Element (Str, I);
 
          if C = ESC then

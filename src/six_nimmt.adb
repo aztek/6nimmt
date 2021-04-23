@@ -13,10 +13,10 @@ package body Six_Nimmt is
       Gen : Generator;
       K, T : Card;
 
-      type Card_Array is array (1..Max_Card) of Card;
+      type Card_Array is array (1 .. Max_Card) of Card;
       Deck_A : Card_Array;
    begin
-      for C in 1..Max_Card loop
+      for C in 1 .. Max_Card loop
          Deck_A (C) := Card (C);
       end loop;
 
@@ -66,7 +66,7 @@ package body Six_Nimmt is
    function Deal (D : in out Deck) return Hand is
        H : Hand;
    begin
-      for I in 1..Init_Hand_Size loop
+      for I in 1 .. Init_Hand_Size loop
          Card_Sets.Insert (H, D.First_Element);
          Card_Vectors.Delete_First (D, 1);
       end loop;
