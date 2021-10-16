@@ -5,20 +5,14 @@ with Six_Nimmt.CLI;
 package body Six_Nimmt.Play is
 
    function Pick_Card (P : Player; T : Table) return Card is
-   begin
-      case P.Intelligence is
-         when Human => return CLI.Prompt_Card (P.Player_Hand);
-         when AI => return Pick_Random_Card (P.Player_Hand);
-      end case;
-   end Pick_Card;
+      (case P.Intelligence is
+          when Human => CLI.Prompt_Card (P.Player_Hand),
+          when AI    => Pick_Random_Card (P.Player_Hand));
 
    function Pick_Row (P : Player; T : Table) return Row_Index is
-   begin
-      case P.Intelligence is
-         when Human => return CLI.Prompt_Row_Index;
-         when AI => return Pick_Cheapest_Row (T);
-      end case;
-   end Pick_Row;
+      (case P.Intelligence is
+          when Human => CLI.Prompt_Row_Index,
+          when AI    => Pick_Cheapest_Row (T));
 
    function Pick_Random_Card (H : Hand) return Card is
       package Discrete_Random is new Ada.Numerics.Discrete_Random

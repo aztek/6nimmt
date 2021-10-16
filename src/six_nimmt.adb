@@ -29,7 +29,6 @@ package body Six_Nimmt is
       end loop;
 
       for C of Deck_A loop
-         Put_Line (Card'Image (C));
          Card_Vectors.Append (D, C);
       end loop;
 
@@ -93,7 +92,7 @@ package body Six_Nimmt is
 
    function Lowest_Card (C : Card; T : Table) return Boolean is begin
       for R of T loop
-         if Card_Diff (C, R.Last_Element) > 0 then
+         if C > R.Last_Element then
             return False;
          end if;
       end loop;

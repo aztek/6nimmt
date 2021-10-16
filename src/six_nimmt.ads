@@ -44,10 +44,14 @@ package Six_Nimmt is
    subtype Hand is Card_Sets.Set
       with Dynamic_Predicate => Card_Sets.Length (Hand) <= Init_Hand_Size;
 
+   Empty_Hand : Hand := Card_Sets.Empty_Set;
+
    function Deal (D : in out Deck) return Hand;
       -- with Post => Size (Deal'Result) = Init_Hand_Size;
 
    subtype Bank is Card_Sets.Set;
+
+   Empty_Bank : Bank := Card_Sets.Empty_Set;
 
    function Bank_Value (B : Bank) return Natural;
 
@@ -55,8 +59,8 @@ package Six_Nimmt is
 
    type Player is record
       Intelligence : Player_Type;
-      Player_Hand : Hand := Card_Sets.Empty_Set;
-      Player_Bank : Bank := Card_Sets.Empty_Set;
+      Player_Hand : Hand := Empty_Hand;
+      Player_Bank : Bank := Empty_Bank;
    end record;
 
    -- The game is for two to ten players.
@@ -98,7 +102,7 @@ package Six_Nimmt is
       with Pre => True,
            Post => (if Lowest_Card'Result then
                        (for all R of T => R.Last_Element > C)
-                   else
+                    else
                        (for some R of T => C > R.Last_Element));
 
 end Six_Nimmt;

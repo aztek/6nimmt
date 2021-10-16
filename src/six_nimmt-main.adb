@@ -11,7 +11,7 @@ procedure Six_Nimmt.Main is
    );
    Previous_Round : Round;
 begin
-   D := Shuffled_Deck (Nr_Rounds * Nr_Players + Nr_Rows);
+   D := Shuffled_Deck (Nr_Rounds * Ps'Length + Nr_Rows);
    Setup_Game (D, T, Ps);
    for Round in 1 .. Nr_Rounds loop
       Redraw_Screen (T, Ps, Previous_Round);
