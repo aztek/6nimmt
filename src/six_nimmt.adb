@@ -35,23 +35,19 @@ package body Six_Nimmt is
       return D;
    end Shuffled_Deck;
 
-   function Nr_Heads (C : Card) return Heads is begin
-      case C is
-         when 55 => return 7;
-         when 11 | 22 | 33 | 44 | 66 | 77 | 88 | 99 => return 5;
-         when 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100 => return 3;
-         when  5 | 15 | 25 | 35 | 45 | 65 | 75 | 85 | 95 => return 2;
-         when others => return 1;
-      end case;
-   end Nr_Heads;
+   function Nr_Heads (C : Card) return Heads is
+      (case C is
+       when 55 => 7,
+       when 11 | 22 | 33 | 44 | 66 | 77 | 88 | 99 => 5,
+       when 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100 => 3,
+       when  5 | 15 | 25 | 35 | 45 | 65 | 75 | 85 | 95 => 2,
+       when others => 1);
 
-   function Card_Diff (C_1 : Card; C_2 : Card) return Integer is begin
-      return Integer (C_1) - Integer (C_2);
-   end Card_Diff;
+   function Card_Diff (C_1 : Card; C_2 : Card) return Integer is
+      (Integer (C_1) - Integer (C_2));
 
-   function ">" (C_1 : Card; C_2 : Card) return Boolean is begin
-      return Card_Diff (C_1, C_2) > 0;
-   end ">";
+   function ">" (C_1 : Card; C_2 : Card) return Boolean is
+      (Card_Diff (C_1, C_2) > 0);
 
    function Bank_Value (B : Bank) return Natural is
       Value : Integer := 0;
