@@ -6,11 +6,11 @@ package body Six_Nimmt is
 
    function Shuffled_Deck (Max_Card : Card) return Deck is
       package Discrete_Random is new Ada.Numerics.Discrete_Random
-         (Result_Subtype => Card);
+        (Result_Subtype => Card);
       use Discrete_Random;
 
-      D : Deck;
-      Gen : Generator;
+      D    : Deck;
+      Gen  : Generator;
       K, T : Card;
 
       type Card_Array is array (1 .. Max_Card) of Card;
@@ -22,8 +22,8 @@ package body Six_Nimmt is
 
       Reset (Gen);
       for I in reverse Deck_A'Range loop
-         K := (Random (Gen) mod I) + 1;
-         T := Deck_A (I);
+         K          := (Random (Gen) mod I) + 1;
+         T          := Deck_A (I);
          Deck_A (I) := Deck_A (K);
          Deck_A (K) := T;
       end loop;
@@ -36,18 +36,20 @@ package body Six_Nimmt is
    end Shuffled_Deck;
 
    function Nr_Heads (C : Card) return Heads is
+     --!pp off
       (case C is
        when 55 => 7,
        when 11 | 22 | 33 | 44 | 66 | 77 | 88 | 99 => 5,
        when 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100 => 3,
        when  5 | 15 | 25 | 35 | 45 | 65 | 75 | 85 | 95 => 2,
        when others => 1);
+     --!pp on
 
    function Card_Diff (C_1 : Card; C_2 : Card) return Integer is
-      (Integer (C_1) - Integer (C_2));
+     (Integer (C_1) - Integer (C_2));
 
    function ">" (C_1 : Card; C_2 : Card) return Boolean is
-      (Card_Diff (C_1, C_2) > 0);
+     (Card_Diff (C_1, C_2) > 0);
 
    function Bank_Value (B : Bank) return Natural is
       Value : Integer := 0;
@@ -59,7 +61,7 @@ package body Six_Nimmt is
    end Bank_Value;
 
    function Deal (D : in out Deck) return Hand is
-       H : Hand;
+      H : Hand;
    begin
       for I in 1 .. Init_Hand_Size loop
          Card_Sets.Insert (H, D.First_Element);
@@ -80,13 +82,14 @@ package body Six_Nimmt is
       T : Table;
    begin
       for R of T loop
-          R := Card_Sets.To_Set (D.First_Element);
-          Card_Vectors.Delete_First (D, 1);
+         R := Card_Sets.To_Set (D.First_Element);
+         Card_Vectors.Delete_First (D, 1);
       end loop;
       return T;
    end Setup_Table;
 
-   function Lowest_Card (C : Card; T : Table) return Boolean is begin
+   function Lowest_Card (C : Card; T : Table) return Boolean is
+   begin
       for R of T loop
          if C > R.Last_Element then
             return False;

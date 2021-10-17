@@ -1,6 +1,6 @@
-with Ada.Characters.Latin_1; use Ada.Characters.Latin_1;
-with Ada.Characters.Handling; use Ada.Characters.Handling;
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Characters.Latin_1;        use Ada.Characters.Latin_1;
+with Ada.Characters.Handling;       use Ada.Characters.Handling;
+with Ada.Strings.Unbounded;         use Ada.Strings.Unbounded;
 with Ada.Strings.Unbounded.Text_IO; use Ada.Strings.Unbounded.Text_IO;
 with Ada.Integer_Text_IO;
 
@@ -32,19 +32,17 @@ package body Six_Nimmt.CLI is
    end Show_Card_Set;
 
    function Player_Avatar (P : Player) return String is
-      (case P.Intelligence is
-       when Human => "🙂",
-       when AI    => "🤖");
+     --!pp off
+     (case P.Intelligence is
+      when Human => "🙂",
+      when AI => "🤖");
+     --!pp on
 
    function Printable_Length (Str : Unbounded_String) return Natural is
-      -- function Is_Printable (C : Character) return Boolean
-      -- is ((C >= Character'Val (32) and C <= Character'Val (127)) or
-      --     C = LC_Icelandic_Eth or C = LC_A_Circumflex);
-
-      Len : Natural := 0;
-      C : Character;
+      Len         : Natural := 0;
+      C           : Character;
       Control_Seq : Boolean := False;
-      Emoji_Seq : Boolean := False;
+      Emoji_Seq   : Boolean := False;
    begin
       for I in 1 .. Ada.Strings.Unbounded.Length (Str) loop
          C := Element (Str, I);
@@ -70,11 +68,12 @@ package body Six_Nimmt.CLI is
       return Len;
    end Printable_Length;
 
-   function Pad_To (Str : Unbounded_String; Width : Natural; Padding : Unbounded_String)
-   return Unbounded_String
-      with Post => Printable_Length (Pad_To'Result) >= Width
+   function Pad_To
+     (Str : Unbounded_String; Width : Natural; Padding : Unbounded_String)
+      return Unbounded_String with
+      Post => Printable_Length (Pad_To'Result) >= Width
    is
-      L : constant Natural := Printable_Length (Str);
+      L      : constant Natural := Printable_Length (Str);
       Padded : Unbounded_String := Str;
    begin
       if Width > L then
@@ -85,9 +84,10 @@ package body Six_Nimmt.CLI is
       end if;
    end Pad_To;
 
-   function Pad_To (Str : Unbounded_String; Width : Natural; Padding : String)
-   return Unbounded_String
-   is (Pad_To (Str, Width, To_Unbounded_String (Padding)));
+   function Pad_To
+     (Str : Unbounded_String; Width : Natural; Padding : String)
+      return Unbounded_String is
+     (Pad_To (Str, Width, To_Unbounded_String (Padding)));
 
    Box_TL : constant String := "┌"; -- "┌";
    Box_TR : constant String := "┐"; -- "┐";
@@ -103,46 +103,45 @@ package body Six_Nimmt.CLI is
    Box_MC : constant String := "┼"; -- "┼";
    Box_MR : constant String := "┤"; -- "┤";
 
-   function Box_Header (Width : Natural; Header : Unbounded_String)
-   return Unbounded_String
-   is (Box_TL & Pad_To (Header, Width, Box_HB) & Box_TR);
+   function Box_Header
+     (Width : Natural; Header : Unbounded_String) return Unbounded_String is
+     (Box_TL & Pad_To (Header, Width, Box_HB) & Box_TR);
 
-   function Box_Header (Width : Natural; Header : String := "")
-   return Unbounded_String
-   is (Box_Header (Width, To_Unbounded_String (Header)));
+   function Box_Header
+     (Width : Natural; Header : String := "") return Unbounded_String is
+     (Box_Header (Width, To_Unbounded_String (Header)));
 
-   function Box_Row (Width : Natural; Row : Unbounded_String)
-   return Unbounded_String
-   is (Box_VB & Pad_To (" " & Row, Width, " ") & Box_VB);
+   function Box_Row
+     (Width : Natural; Row : Unbounded_String) return Unbounded_String is
+     (Box_VB & Pad_To (" " & Row, Width, " ") & Box_VB);
 
-   function Box_Row (Width : Natural; Row : String)
-   return Unbounded_String
-   is (Box_Row (Width, To_Unbounded_String (Row)));
+   function Box_Row (Width : Natural; Row : String) return Unbounded_String is
+     (Box_Row (Width, To_Unbounded_String (Row)));
 
-   function Box_Middle (Width : Natural; Middle : Unbounded_String)
-   return Unbounded_String
-   is (Box_ML & Pad_To (Middle, Width, Box_HB) & Box_MR);
+   function Box_Middle
+     (Width : Natural; Middle : Unbounded_String) return Unbounded_String is
+     (Box_ML & Pad_To (Middle, Width, Box_HB) & Box_MR);
 
-   function Box_Middle (Width : Natural; Middle : String)
-   return Unbounded_String
-   is (Box_Middle (Width, To_Unbounded_String (Middle)));
+   function Box_Middle
+     (Width : Natural; Middle : String) return Unbounded_String is
+     (Box_Middle (Width, To_Unbounded_String (Middle)));
 
-   function Box_Footer (Width : Natural; Footer : Unbounded_String)
-   return Unbounded_String
-   is (Box_BL & Pad_To (Footer, Width, Box_HB) & Box_BR);
+   function Box_Footer
+     (Width : Natural; Footer : Unbounded_String) return Unbounded_String is
+     (Box_BL & Pad_To (Footer, Width, Box_HB) & Box_BR);
 
-   function Box_Footer (Width : Natural; Footer : String := "")
-   return Unbounded_String
-   is (Box_Footer (Width, To_Unbounded_String (Footer)));
+   function Box_Footer
+     (Width : Natural; Footer : String := "") return Unbounded_String is
+     (Box_Footer (Width, To_Unbounded_String (Footer)));
 
    package Texts is new Ada.Containers.Vectors
-     (Index_Type   => Natural,
-      Element_Type => Unbounded_String);
+     (Index_Type => Natural, Element_Type => Unbounded_String);
    use Texts;
-   
+
    subtype Text is Vector;
 
-   procedure Print_Text (T : Text) is begin
+   procedure Print_Text (T : Text) is
+   begin
       for L of T loop
          Put_Line (L);
       end loop;
@@ -150,9 +149,9 @@ package body Six_Nimmt.CLI is
 
    function Zip_Text (T_1, T_2 : Text) return Text is
       Zipped : Text;
-      Line : Unbounded_String;
-      C_1 : Texts.Cursor := First (T_1);
-      C_2 : Texts.Cursor := First (T_2);
+      Line   : Unbounded_String;
+      C_1    : Texts.Cursor := First (T_1);
+      C_2    : Texts.Cursor := First (T_2);
    begin
       loop
          if Has_Element (C_1) and Has_Element (C_2) then
@@ -174,22 +173,26 @@ package body Six_Nimmt.CLI is
 
    function Draw_Scoreboard (Ps : Players; Width : Natural := 8) return Text is
       Output : Text;
-      Score : Unbounded_String;
+      Value  : Integer;
+      Score  : Unbounded_String;
    begin
       Append (Output, Box_Header (Width, " Scores "));
       for P of Ps loop
-         Score := To_Unbounded_String (Integer'Image (Bank_Value (P.Player_Bank)));
+         Value := Bank_Value (P.Player_Bank);
+         Score := To_Unbounded_String (Integer'Image (Value));
          Append (Output, Box_Row (Width, Player_Avatar (P) & Score));
       end loop;
       Append (Output, Box_Footer (Width));
       return Output;
    end Draw_Scoreboard;
 
-   function Draw_Previous_Turn (Ps : Players; R : Round; Width : Natural := 30)
-   return Text is
+   function Draw_Previous_Turn
+     (Ps : Players; R : Round; Width : Natural := 30) return Text
+   is
       Output : Text;
-      C : Card;
-      P : Player_Position;
+      C      : Card;
+      P      : Player_Position;
+      L      : Unbounded_String;
    begin
       if Card_Maps.Is_Empty (R) then
          return Output;
@@ -197,9 +200,10 @@ package body Six_Nimmt.CLI is
 
       Append (Output, Box_Header (Width, " Previous round "));
       for Cursor in R.Iterate loop
-         C := Card_Maps.Key (Cursor);
          P := Card_Maps.Element (Cursor);
-         Append (Output, Box_Row (Width, Player_Avatar (Ps (P)) & " played " & Show_Card (C)));
+         C := Card_Maps.Key (Cursor);
+         L := Player_Avatar (Ps (P)) & " played " & Show_Card (C);
+         Append (Output, Box_Row (Width, L));
       end loop;
       Append (Output, Box_Footer (Width));
       return Output;
@@ -207,22 +211,27 @@ package body Six_Nimmt.CLI is
 
    function Draw_Table (T : Table; Width : Natural := 67) return Text is
       Output : Text;
-      Line : Unbounded_String;
+      Nr     : Character;
+      Line   : Unbounded_String;
+      Header : String := " Table ";
+      Middle : String := Box_HB & Box_HB & Box_HB & Box_MC;
+      Footer : String := Box_HB & Box_HB & Box_HB & Box_BT;
    begin
-      Append (Output, Box_Header (Width, " Table "));
+      Append (Output, Box_Header (Width, Header));
       for I in T'Range loop
-         Line := Character'Val(48 + I) & " " & Box_VB & " " & Show_Card_Set (T (I));
+         Nr   := Character'Val (48 + I);
+         Line := Nr & " " & Box_VB & " " & Show_Card_Set (T (I));
          Append (Output, Box_Row (Width, Line));
          if I /= T'Last then
-            Append (Output, Box_Middle (Width, Box_HB & Box_HB & Box_HB & Box_MC));
+            Append (Output, Box_Middle (Width, Middle));
          end if;
       end loop;
-      Append (Output, Box_Footer (Width, Box_HB & Box_HB & Box_HB & Box_BT));
+      Append (Output, Box_Footer (Width, Footer));
       return Output;
    end Draw_Table;
 
    function Draw_Player (P : Player; Width : Natural := 67) return Text is
-      Output : Text;
+      Output   : Text;
       Hand_Row : Unbounded_String;
    begin
       if Card_Sets.Is_Empty (P.Player_Hand) then
@@ -238,7 +247,7 @@ package body Six_Nimmt.CLI is
             Append (Hand_Row, Show_Card (C) & " ");
          end if;
       end loop;
-      Append (Output, Box_Row    (Width, Hand_Row));
+      Append (Output, Box_Row (Width, Hand_Row));
       Append (Output, Box_Footer (Width));
       return Output;
    end Draw_Player;
@@ -259,9 +268,9 @@ package body Six_Nimmt.CLI is
    end Redraw_Screen;
 
    procedure Game_Over (T : Table; Ps : Players; R : Round) is
-      Score : Natural;
+      Score        : Natural;
       Lowest_Score : Natural := 999;
-      Your_Score : Natural;
+      Your_Score   : Natural;
    begin
       Redraw_Screen (T, Ps, R);
       Put ("  Game over! ");

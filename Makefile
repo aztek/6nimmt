@@ -14,6 +14,9 @@ obj:
 run: 6nimmt
 	exec bin/6nimmt
 
+pretty:
+	gnatpp -Psix_nimmt
+
 clean:
 	gprclean -Psix_nimmt
 	rm -rf bin obj

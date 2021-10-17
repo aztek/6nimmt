@@ -1,14 +1,16 @@
 with Six_Nimmt.Play; use Six_Nimmt.Play;
-with Six_Nimmt.CLI; use Six_Nimmt.CLI;
+with Six_Nimmt.CLI;  use Six_Nimmt.CLI;
 
 procedure Six_Nimmt.Main is
    D : Deck;
    T : Table;
+   --!pp off
    Ps : Players := (
       (Intelligence => Human, others => <>),
       (Intelligence => AI,    others => <>),
       (Intelligence => AI,    others => <>)
    );
+   --!pp on
    Previous_Round : Round;
 begin
    D := Shuffled_Deck (Nr_Rounds * Ps'Length + Nr_Rows);
