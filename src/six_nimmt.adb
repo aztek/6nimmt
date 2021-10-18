@@ -52,7 +52,7 @@ package body Six_Nimmt is
      (Card_Diff (C_1, C_2) > 0);
 
    function Bank_Value (B : Bank) return Natural is
-      Value : Integer := 0;
+      Value : Natural := 0;
    begin
       for C of B loop
          Value := Value + Nr_Heads (C);

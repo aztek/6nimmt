@@ -22,7 +22,7 @@ package Six_Nimmt is
    --  Each card bears on it one to seven bull's heads symbols that represent
    --  penalty points.
 
-   subtype Heads is Integer with
+   subtype Heads is Natural with
         Static_Predicate => Heads in 1 | 2 | 3 | 5 | 7;
 
       --!pp off

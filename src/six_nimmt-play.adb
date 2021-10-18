@@ -40,8 +40,8 @@ package body Six_Nimmt.Play is
    end Pick_Random_Card;
 
    function Pick_Cheapest_Row (T : Table) return Row_Index is
-      Row_Cost : Integer;
-      Min_Cost : Integer   := 999;
+      Row_Cost : Natural;
+      Min_Cost : Natural   := 999;
       R        : Row_Index := Row_Index'First;
    begin
       for I in T'Range loop

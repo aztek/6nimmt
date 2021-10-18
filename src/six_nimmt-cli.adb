@@ -173,13 +173,13 @@ package body Six_Nimmt.CLI is
 
    function Draw_Scoreboard (Ps : Players; Width : Natural := 8) return Text is
       Output : Text;
-      Value  : Integer;
+      Value  : Natural;
       Score  : Unbounded_String;
    begin
       Append (Output, Box_Header (Width, " Scores "));
       for P of Ps loop
          Value := Bank_Value (P.Player_Bank);
-         Score := To_Unbounded_String (Integer'Image (Value));
+         Score := To_Unbounded_String (Natural'Image (Value));
          Append (Output, Box_Row (Width, Player_Avatar (P) & Score));
       end loop;
       Append (Output, Box_Footer (Width));
