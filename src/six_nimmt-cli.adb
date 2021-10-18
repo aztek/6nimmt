@@ -279,7 +279,7 @@ package body Six_Nimmt.CLI is
          if P.Intelligence = Human then
             Your_Score := Score;
          end if;
-         if Lowest_Score < Score then
+         if Score < Lowest_Score then
             Lowest_Score := Score;
          end if;
       end loop;
