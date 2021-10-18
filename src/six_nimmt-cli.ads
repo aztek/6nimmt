@@ -4,6 +4,8 @@ package Six_Nimmt.CLI is
 
    procedure Game_Over (T : Table; Ps : Players; R : Round);
 
+   procedure Announce_Winner (Winner : Player);
+
    function Prompt_Card (H : Hand) return Card with
       Post => Card_Sets.Contains (H, Prompt_Card'Result);
 

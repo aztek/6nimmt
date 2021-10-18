@@ -98,4 +98,19 @@ package body Six_Nimmt is
       return True;
    end Lowest_Card;
 
+   function Decide_Winner (Ps : Players) return Player is
+      Winner       : Player  := Ps (Ps'First);
+      Score        : Natural;
+      Lowest_Score : Natural := Bank_Value (Winner.Player_Bank);
+   begin
+      for P of Ps loop
+         Score := Bank_Value (P.Player_Bank);
+         if Score < Lowest_Score then
+            Lowest_Score := Score;
+            Winner       := P;
+         end if;
+      end loop;
+      return Winner;
+   end Decide_Winner;
+
 end Six_Nimmt;

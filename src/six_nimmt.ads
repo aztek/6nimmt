@@ -118,4 +118,17 @@ package Six_Nimmt is
       Pre  => True,
       Post => (Lowest_Card'Result = (for all R of T => R.Last_Element > C));
 
+      --!pp off
+
+   --  The player with the lowest score wins.
+
+   --!pp on
+
+   function Decide_Winner (Ps : Players) return Player with
+      Pre  => Ps'Length > 0,
+      Post =>
+      (for all P of Ps =>
+         Bank_Value (P.Player_Bank) >=
+         Bank_Value (Decide_Winner'Result.Player_Bank));
+
 end Six_Nimmt;

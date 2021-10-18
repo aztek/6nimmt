@@ -268,27 +268,19 @@ package body Six_Nimmt.CLI is
    end Redraw_Screen;
 
    procedure Game_Over (T : Table; Ps : Players; R : Round) is
-      Score        : Natural;
-      Lowest_Score : Natural := 999;
-      Your_Score   : Natural;
    begin
       Redraw_Screen (T, Ps, R);
       Put ("  Game over! ");
-      for P of Ps loop
-         Score := Bank_Value (P.Player_Bank);
-         if P.Intelligence = Human then
-            Your_Score := Score;
-         end if;
-         if Score < Lowest_Score then
-            Lowest_Score := Score;
-         end if;
-      end loop;
-      if Your_Score = Lowest_Score then
+   end Game_Over;
+
+   procedure Announce_Winner (Winner : Player) is
+   begin
+      if Winner.Intelligence = Human then
          Put_Line ("You won! 🎉");
       else
          Put_Line ("You lost. 😭");
       end if;
-   end Game_Over;
+   end Announce_Winner;
 
    function Prompt_Card (H : Hand) return Card is
       I : Integer;

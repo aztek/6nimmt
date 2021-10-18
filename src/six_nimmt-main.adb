@@ -11,6 +11,7 @@ procedure Six_Nimmt.Main is
       (Intelligence => AI,    others => <>)
    );
    --!pp on
+   Winner         : Player;
    Previous_Round : Round;
 begin
    D := Shuffled_Deck (Nr_Rounds * Ps'Length + Nr_Rows);
@@ -20,4 +21,6 @@ begin
       Previous_Round := Play_Round (T, Ps);
    end loop;
    Game_Over (T, Ps, Previous_Round);
+   Winner := Decide_Winner (Ps);
+   Announce_Winner (Winner);
 end Six_Nimmt.Main;
