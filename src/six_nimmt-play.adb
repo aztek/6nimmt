@@ -26,17 +26,21 @@ package body Six_Nimmt.Play is
       Gen : Generator;
 
       Count        : Count_Type := Card_Sets.Length (H);
-      Index        : Count_Type := 1;
       Random_Index : Count_Type;
+
+      type Card_Array_Type is array (Count_Type range <>) of Card;
+      Card_Array  : Card_Array_Type (0 .. Count);
+      Array_Index : Count_Type := Card_Array'First;
    begin
-      Reset (Gen);
-      Random_Index := (Random (Gen) mod Count) + 1;
       for C of H loop
-         if Index = Random_Index then
-            return C;
-         end if;
-         Index := Index + 1;
+         Card_Array (Array_Index) := C;
+         Array_Index              := Array_Index + 1;
       end loop;
+
+      Reset (Gen);
+      Random_Index := Random (Gen) mod Count;
+
+      return Card_Array (Random_Index);
    end Pick_Random_Card;
 
    function Pick_Cheapest_Row (T : Table) return Row_Index is
