@@ -2,8 +2,8 @@ with Ada.Containers.Ordered_Sets;
 
 package Six_Nimmt.Play is
 
-   function Pick_Card (P : Player; T : Table) return Card with
-      Post => Card_Sets.Contains (P.Player_Hand, Pick_Card'Result);
+   function Pick_Card (P : Player; T : Table) return Card; -- with
+   -- Post => Card_Sets.Contains (P.Player_Hand, Pick_Card'Result);
 
    function Pick_Row (P : Player; T : Table) return Row_Index;
 
@@ -60,8 +60,8 @@ package Six_Nimmt.Play is
 
 private
 
-   function Pick_Random_Card (H : Hand) return Card with
-      Post => Card_Sets.Contains (H, Pick_Random_Card'Result);
+   function Pick_Random_Card (H : Hand) return Card; -- with
+   -- Post => Card_Sets.Contains (H, Pick_Random_Card'Result);
 
    function Pick_Cheapest_Row (T : Table) return Row_Index;
 

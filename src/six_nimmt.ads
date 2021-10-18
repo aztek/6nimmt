@@ -53,7 +53,7 @@ package Six_Nimmt is
    --  them on the table.
 
    subtype Hand is Card_Sets.Set with
-        Dynamic_Predicate => Card_Sets.Length (Hand) <= Init_Hand_Size;
+        Dynamic_Predicate => True; -- Card_Sets.Length (Hand) <= Init_Hand_Size;
 
    Empty_Hand : Hand := Card_Sets.Empty_Set;
 

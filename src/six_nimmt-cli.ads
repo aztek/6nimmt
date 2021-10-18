@@ -6,8 +6,8 @@ package Six_Nimmt.CLI is
 
    procedure Announce_Winner (Winner : Player);
 
-   function Prompt_Card (H : Hand) return Card with
-      Post => Card_Sets.Contains (H, Prompt_Card'Result);
+   function Prompt_Card (H : Hand) return Card; -- with
+   -- Post => Card_Sets.Contains (H, Prompt_Card'Result);
 
    function Prompt_Row_Index return Row_Index;
 
