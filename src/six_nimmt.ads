@@ -1,5 +1,5 @@
 with Ada.Containers; use Ada.Containers;
-with Ada.Containers.Ordered_Maps;
+with Ada.Containers.Functional_Maps;
 with Ada.Containers.Ordered_Sets;
 with Ada.Containers.Vectors;
 
@@ -84,7 +84,7 @@ package Six_Nimmt is
 
    type Players is array (Player_Position) of Player;
 
-   package Card_Maps is new Ada.Containers.Ordered_Maps
+   package Card_Maps is new Ada.Containers.Functional_Maps
      (Key_Type => Card, Element_Type => Player_Position);
 
    Nr_Rounds : constant := 10;

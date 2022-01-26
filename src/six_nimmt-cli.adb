@@ -199,9 +199,8 @@ package body Six_Nimmt.CLI is
       end if;
 
       Append (Output, Box_Header (Width, " Previous round "));
-      for Cursor in R.Iterate loop
-         P := Card_Maps.Element (Cursor);
-         C := Card_Maps.Key (Cursor);
+      for C of R loop
+         P := Card_Maps.Get (R, C);
          L := Player_Avatar (Ps (P)) & " played " & Show_Card (C);
          Append (Output, Box_Row (Width, L));
       end loop;

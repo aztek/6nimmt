@@ -115,12 +115,11 @@ package body Six_Nimmt.Play is
    begin
       for P in Ps'Range loop
          C := Pick_Card (Ps (P), T);
-         Card_Maps.Include (R, C, P);
+         R := Card_Maps.Add (R, C, P);
       end loop;
 
-      for Cursor in Card_Maps.Iterate (R) loop
-         C := Card_Maps.Key (Cursor);
-         P := Card_Maps.Element (Cursor);
+      for C of R loop
+         P := Card_Maps.Get (R, C);
          Play_Turn (T, Ps (P), C);
       end loop;
 
